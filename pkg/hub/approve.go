@@ -87,18 +87,22 @@ func (c *Cluster) GetSpokeClusterConfig(kubeconfig string) (*rest.Config, error)
 }
 
 // GenerateHubClusterKubeConfig generate hub-cluster's kubeconfig for spoke-cluster
-func (c *Cluster) GenerateHubClusterKubeConfig(ctx context.Context, ip string) (*clientcmdapiv1.Config, error) {
-
-	// 1. get ca cert from configMap kube-public/cluster-info
-	configMap := new(corev1.ConfigMap)
-	if err := c.Client.Get(ctx, client.ObjectKey{Name: "cluster-info", Namespace: "kube-public"}, configMap); err != nil {
-		return nil, err
-	}
-	configMapData := configMap.Data["kubeconfig"]
-
+func (c *Cluster) GenerateHubClusterKubeConfig(ctx context.Context, ip string, hubConfig *clientcmdapiv1.Config) (*clientcmdapiv1.Config, error) {
 	kubeConfig := new(clientcmdapiv1.Config)
-	if err := yaml.Unmarshal([]byte(configMapData), kubeConfig); err != nil {
-		return nil, err
+
+	if hubConfig != nil {
+		kubeConfig = hubConfig
+	} else {
+		// 1. get ca cert from configMap kube-public/cluster-info
+		configMap := new(corev1.ConfigMap)
+		if err := c.Client.Get(ctx, client.ObjectKey{Name: "cluster-info", Namespace: "kube-public"}, configMap); err != nil {
+			return nil, err
+		}
+		configMapData := configMap.Data["kubeconfig"]
+
+		if err := yaml.Unmarshal([]byte(configMapData), kubeConfig); err != nil {
+			return nil, err
+		}
 	}
 
 	// 2. get token for spoke-cluster
