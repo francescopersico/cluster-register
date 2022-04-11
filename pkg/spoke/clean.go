@@ -32,7 +32,7 @@ import (
 	ocmworkv1 "open-cluster-management.io/api/work/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/oam-dev/cluster-register/pkg/common"
+	"github.com/francescopersico/cluster-register/pkg/common"
 )
 
 func CleanSpokeClusterEnv(config *rest.Config) error {

@@ -9,8 +9,8 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 
-	"github.com/oam-dev/cluster-register/pkg/hub"
-	"github.com/oam-dev/cluster-register/pkg/spoke"
+	"github.com/francescopersico/cluster-register/pkg/hub"
+	"github.com/francescopersico/cluster-register/pkg/spoke"
 )
 
 func main() {

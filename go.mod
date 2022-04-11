@@ -1,4 +1,4 @@
-module github.com/oam-dev/cluster-register
+module github.com/francescopersico/cluster-register
 
 go 1.16
 

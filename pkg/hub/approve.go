@@ -22,7 +22,7 @@ import (
 	ocmclusterv1 "open-cluster-management.io/api/cluster/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/oam-dev/cluster-register/pkg/common"
+	"github.com/francescopersico/cluster-register/pkg/common"
 )
 
 const (
